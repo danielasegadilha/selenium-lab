@@ -8,7 +8,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public abstract class BaseTest{
 	
 	protected static WebDriver driver;
-	//private static final String URL_BASE = "https://www.google.com";
 	private static final String URL_BASE = "sistema/produtos.html";
 	private static final String PATH_DRIVE = "src/test/resources/chromedriver";
 	
