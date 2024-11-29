@@ -16,7 +16,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class GoogleFirstTest {
 	private WebDriver driver;
 	private String URL_BASE = "https://www.google.com";
-	private String PATH_DRIVE = "src/test/resources/chromedriver";
+	private String PATH_DRIVE = "src/test/resources/chromedriver.exe";
 //	OBS: no Linux precisa executar o comando: chmod +x chromedriver
 	
 	private void iniciar() {
