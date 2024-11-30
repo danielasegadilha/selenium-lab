@@ -68,6 +68,7 @@ public class ProdutoPO extends BasePO {
 	 * */
 	public void abreModalDeCadastroDeProduto() {
 		buttonAdicionar.click();
+		buttonAdicionar.click();
 	}
 
 	/**
@@ -86,6 +87,7 @@ public class ProdutoPO extends BasePO {
 		escrever(inputValor, valor);
 		escrever(inputData, data);
 		buttonSalvar.click();
+
 	}
 	
 	public String obterTituloDaPagina() {
