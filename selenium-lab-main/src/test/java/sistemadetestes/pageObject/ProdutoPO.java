@@ -17,6 +17,9 @@ public class ProdutoPO extends BasePO {
 	@FindBy(id = "btn-adicionar")
 	public WebElement buttonAdicionar;
 
+	@FindBy(id = "btn-sair")
+	public WebElement buttonSair;
+
 	@FindBy(id = "codigo")
 	public WebElement inputCodigo;
 
