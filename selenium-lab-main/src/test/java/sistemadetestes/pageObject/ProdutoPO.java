@@ -1,13 +1,22 @@
 package sistemadetestes.pageObject;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class ProdutoPO extends BasePO {
 
 	//padrão da variável: nome do elemento html + o que ele representa
+
+	@FindBy(id = "btn-adicionar")
+	public WebElement buttonAdicionar;
+
 	@FindBy(id = "codigo")
 	public WebElement inputCodigo;
 
@@ -53,7 +62,14 @@ public class ProdutoPO extends BasePO {
 	public String obterTituloPagina() {
 		return driver.getTitle();
 	}
-	
+
+	/**
+	 * Método que abre o modal no sistema
+	 * */
+	public void abreModalDeCadastroDeProduto() {
+		buttonAdicionar.click();
+	}
+
 	/**
 	 * Método que tenta executar a ação no sistema
 	 * @param codigo Codigo do produto para tentativa de cadastro de produto
@@ -63,6 +79,7 @@ public class ProdutoPO extends BasePO {
 	 * @param data Data para tentativa de cadastro de produto
 	 * */
 	public void executarCadastroDeProduto(String codigo, String nome, String quantidade, String valor, String data) {
+		abreModalDeCadastroDeProduto();
 		escrever(inputCodigo, codigo);
 		escrever(inputNome, nome);
 		escrever(inputQuantidade, quantidade);

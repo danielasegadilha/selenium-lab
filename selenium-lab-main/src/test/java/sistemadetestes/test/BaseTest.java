@@ -8,8 +8,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public abstract class BaseTest{
 	
 	protected static WebDriver driver;
-	private static final String URL_BASE = "sistema/produtos.html";
-	private static final String PATH_DRIVE = "src/test/resources/chromedriver";
+	private static final String URL_BASE = "file://" + System.getProperty("user.dir") + "/sistema/produtos.html";
+	private static final String PATH_DRIVE = "src/test/resources/chromedriver.exe";
 	
 	@BeforeClass
 	public static void iniciar() {

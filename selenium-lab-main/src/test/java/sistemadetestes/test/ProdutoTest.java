@@ -19,32 +19,24 @@ public class ProdutoTest extends BaseTest {
 	}
 	
 	@Test
-	public void TC002_naoDeveCadastrarProdutoComTodosOsCamposVazios() {
+	public void TC001_naoDeveCadastrarProdutoComCodigoNomeQuantidadeValorEDataVazios() {
 		produtoPage.executarCadastroDeProduto("", "", "", "", "");
-		
-		String mensagem = produtoPage.obterMensagem();
-		
-		assertEquals(mensagem, "Todos os campos são obrigatórios para o cadastro!");
-	}
-	
-	@Test
-	public void TC007_naoDeveLogarNoSistemaComEmailIncorretoESenhaVazia() {
-		produtoPage.escrever(produtoPage.inputEmail, "teste");
-		produtoPage.inputSenha.sendKeys("");
 
-		produtoPage.buttonSalvar.click();
-		
 		String mensagem = produtoPage.obterMensagem();
 		
 		assertEquals(mensagem, "Todos os campos são obrigatórios para o cadastro!");
 	}
 	
 	@Test
-	public void TC009_naoDeveLogarNoSistemaComEmailVazioESenhaIncorreta() {
-		produtoPage.escrever(loginPage.inputEmail, "");
-		produtoPage.escrever(loginPage.inputSenha, "teste");
+	public void TC007_naoDeveCadastrarProdutoComCodigoENomePreenchidosEQuantidadeValorEDataVazios() {
+//		produtoPage.abreModalDeCadastroDeProduto();
+//		produtoPage.escrever(produtoPage.inputCodigo, "1");
+//		produtoPage.escrever(produtoPage.inputNome, "Relógio de pulso");
+//		produtoPage.escrever(produtoPage.inputQuantidade, "");
+//		produtoPage.escrever(produtoPage.inputValor, "");
+//		produtoPage.escrever(produtoPage.inputData, "");
 
-		produtoPage.buttonSalvar.click();
+		produtoPage.executarCadastroDeProduto("1", "Relógio de pulso", "", "", "");
 		
 		String mensagem = produtoPage.obterMensagem();
 		
@@ -52,9 +44,25 @@ public class ProdutoTest extends BaseTest {
 	}
 	
 	@Test
-	public void TC007_deveLogarNoSistemaComEmailESenhaCorretos() {
-		produtoPage.executarCadastroDeProduto("admin@admin.com", "admin@123");
+	public void TC009_naoDeveCadastrarProdutoComCodigoNomeEValorPreenchidosEQuantidadeEDataVazios() {
+//		produtoPage.abreModalDeCadastroDeProduto();
+//		produtoPage.escrever(produtoPage.inputCodigo, "1");
+//		produtoPage.escrever(produtoPage.inputNome, "Relógio de pulso");
+//		produtoPage.escrever(produtoPage.inputQuantidade, "");
+//		produtoPage.escrever(produtoPage.inputValor, "100");
+//		produtoPage.escrever(produtoPage.inputData, "");
+
+		produtoPage.executarCadastroDeProduto("1", "Relógio de pulso", "100", "", "");
 		
+		String mensagem = produtoPage.obterMensagem();
+		
+		assertEquals(mensagem, "Todos os campos são obrigatórios para o cadastro!");
+	}
+	
+	@Test
+	public void TC010_deveCadastrarProdutoComCodigoNomeQuantidadeValorEDataPreenchidos() {
+		produtoPage.executarCadastroDeProduto("1", "Relógio de pulso", "3", "100", "2024-11-29");
+
 		assertEquals(produtoPage.obterTituloDaPagina(), "Controle de Produtos");
 	}
 }
