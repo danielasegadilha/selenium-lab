@@ -13,12 +13,17 @@ import java.time.Duration;
 public class ProdutoPO extends BasePO {
 
 	//padrão da variável: nome do elemento html + o que ele representa
+	@FindBy(css = "#collapsibleNavbar ul li a")
+	public WebElement linkVoltar;
 
 	@FindBy(id = "btn-adicionar")
 	public WebElement buttonAdicionar;
 
 	@FindBy(id = "btn-sair")
 	public WebElement buttonSair;
+
+	@FindBy(id = "cadastro-produto")
+	public WebElement divModal;
 
 	@FindBy(id = "codigo")
 	public WebElement inputCodigo;
@@ -61,9 +66,12 @@ public class ProdutoPO extends BasePO {
 		input.clear();
 		input.sendKeys(texto + Keys.TAB);
 	}
-	
-	public String obterTituloPagina() {
-		return driver.getTitle();
+
+	/**
+	 * Método que volta para a página de login
+	 * */
+	public void voltaParaPaginaDeLogin() {
+		linkVoltar.click();
 	}
 
 	/**
@@ -71,7 +79,13 @@ public class ProdutoPO extends BasePO {
 	 * */
 	public void abreModalDeCadastroDeProduto() {
 		buttonAdicionar.click();
-		buttonAdicionar.click();
+	}
+
+	/**
+	 * Método que fecha o modal no sistema
+	 * */
+	public void fechaModalDeCadastroDeProduto() {
+		buttonSair.click();
 	}
 
 	/**
@@ -83,7 +97,7 @@ public class ProdutoPO extends BasePO {
 	 * @param data Data para tentativa de cadastro de produto
 	 * */
 	public void executarCadastroDeProduto(String codigo, String nome, String quantidade, String valor, String data) {
-		abreModalDeCadastroDeProduto();
+//		abreModalDeCadastroDeProduto();
 		escrever(inputCodigo, codigo);
 		escrever(inputNome, nome);
 		escrever(inputQuantidade, quantidade);

@@ -19,61 +19,95 @@ public class ProdutoTest extends BaseTest {
 		produtoPage = new ProdutoPO(driver);
 	}
 
-	@AfterClass
-	public static void fecharModal() {
-		// Verifica se o modal está visível e fecha, caso esteja.
-		if (produtoPage.buttonSair.isDisplayed()) {
-			produtoPage.buttonSair.click();
-		}
-	}
-	
 	@Test
-	public void TC001_naoDeveCadastrarProdutoComCodigoNomeQuantidadeValorEDataVazios() {
+	public void TC001_deveVoltarParaPaginaDeLogin() {
+		produtoPage.voltaParaPaginaDeLogin();
+
+		assertEquals(produtoPage.obterTituloDaPagina(), "Login");
+	}
+
+	@Test
+	public void TC002_deveAbrirModalDeCadastroDeProduto() {
+		produtoPage.abreModalDeCadastroDeProduto();
+
+		String modalClass = produtoPage.divModal.getAttribute("class");
+
+		assertEquals(modalClass, "modal show");
+	}
+
+	@Test
+	public void TC003_naoDeveCadastrarProdutoComCodigoNomeQuantidadeValorEDataVazios() {
+		produtoPage.abreModalDeCadastroDeProduto();
 		produtoPage.executarCadastroDeProduto("", "", "", "", "");
 
 		String mensagem = produtoPage.obterMensagem();
+		produtoPage.fechaModalDeCadastroDeProduto();
+		produtoPage.fechaModalDeCadastroDeProduto();
 		
 		assertEquals(mensagem, "Todos os campos são obrigatórios para o cadastro!");
 	}
 	
 	@Test
-	public void TC007_naoDeveCadastrarProdutoComCodigoENomePreenchidosEQuantidadeValorEDataVazios() {
-		produtoPage.escrever(produtoPage.inputCodigo, "1");
-		produtoPage.escrever(produtoPage.inputNome, "Relógio de pulso");
-		produtoPage.escrever(produtoPage.inputQuantidade, "");
-		produtoPage.escrever(produtoPage.inputValor, "");
-		produtoPage.escrever(produtoPage.inputData, "");
+	public void TC009_naoDeveCadastrarProdutoComCodigoENomePreenchidosEQuantidadeValorEDataVazios() {
+		produtoPage.abreModalDeCadastroDeProduto();
+		produtoPage.abreModalDeCadastroDeProduto();
+		produtoPage.executarCadastroDeProduto("1", "Relógio de pulso", "", "", "");
 		
 		String mensagem = produtoPage.obterMensagem();
-		
+		produtoPage.fechaModalDeCadastroDeProduto();
+		produtoPage.fechaModalDeCadastroDeProduto();
+
 		assertEquals(mensagem, "Todos os campos são obrigatórios para o cadastro!");
 
 	}
 	
 	@Test
-	public void TC009_naoDeveCadastrarProdutoComCodigoNomeEValorPreenchidosEQuantidadeEDataVazios() {
-		produtoPage.escrever(produtoPage.inputCodigo, "1");
-		produtoPage.escrever(produtoPage.inputNome, "Relógio de pulso");
-		produtoPage.escrever(produtoPage.inputQuantidade, "");
-		produtoPage.escrever(produtoPage.inputValor, "100");
-		produtoPage.escrever(produtoPage.inputData, "");
+	public void TC011_naoDeveCadastrarProdutoComCodigoNomeEValorPreenchidosEQuantidadeEDataVazios() {
+		produtoPage.abreModalDeCadastroDeProduto();
+		produtoPage.abreModalDeCadastroDeProduto();
+		produtoPage.executarCadastroDeProduto("1", "Relógio de pulso", "", "100", "");
 
 		String mensagem = produtoPage.obterMensagem();
-		
+		produtoPage.fechaModalDeCadastroDeProduto();
+		produtoPage.fechaModalDeCadastroDeProduto();
+
 		assertEquals(mensagem, "Todos os campos são obrigatórios para o cadastro!");
 
 	}
 	
 	@Test
-	public void TC010_deveCadastrarProdutoComCodigoNomeQuantidadeValorEDataPreenchidos() {
-		produtoPage.escrever(produtoPage.inputCodigo, "1");
-		produtoPage.escrever(produtoPage.inputNome, "Relógio de pulso");
-		produtoPage.escrever(produtoPage.inputQuantidade, "3");
-		produtoPage.escrever(produtoPage.inputValor, "100");
-		produtoPage.escrever(produtoPage.inputData, "2024-11-29");
+	public void TC012_deveCadastrarProdutoComCodigoNomeQuantidadeValorEDataPreenchidos() {
+		produtoPage.abreModalDeCadastroDeProduto();
+		produtoPage.abreModalDeCadastroDeProduto();
+		produtoPage.executarCadastroDeProduto("1", "Relógio de pulso", "3", "100", "2024-11-29");
+
+		produtoPage.fechaModalDeCadastroDeProduto();
 
 		assertEquals(produtoPage.obterTituloDaPagina(), "Controle de Produtos");
+	}
 
-		produtoPage.buttonSair.click();
+	@Test
+	public void TC014_deveFecharModalDeCadastroDeProdutoSemCadastrarProduto() {
+		produtoPage.abreModalDeCadastroDeProduto();
+		produtoPage.abreModalDeCadastroDeProduto();
+		produtoPage.fechaModalDeCadastroDeProduto();
+
+		String modalClass = produtoPage.divModal.getAttribute("class");
+
+		assertEquals(modalClass, "modal");
+	}
+
+	@Test
+	public void TC015_deveFecharModalDeCadastroDeProdutoAoCadastrarProduto() {
+		produtoPage.abreModalDeCadastroDeProduto();
+		produtoPage.abreModalDeCadastroDeProduto();
+		produtoPage.executarCadastroDeProduto("1", "Relógio de pulso", "3", "100", "2024-11-29");
+
+		produtoPage.fechaModalDeCadastroDeProduto();
+
+		String modalClass = produtoPage.divModal.getAttribute("class");
+
+		assertEquals(modalClass, "modal");
+
 	}
 }
